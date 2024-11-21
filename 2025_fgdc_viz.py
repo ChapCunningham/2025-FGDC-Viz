@@ -101,8 +101,8 @@ def plot_field_with_data(hitter_df, pitcher_df, team):
     st.pyplot(fig)
 
 # Main Streamlit app
-hitter_file_path = "Hitters.csv"
-pitcher_file_path = "Pitchers.csv"
+hitter_file_path = "2025 FGDC Projections - All Hitters.csv"
+pitcher_file_path = "2025 FGDC Projections - All Pitchers.csv"
 
 hitter_df = pd.read_csv(hitter_file_path)
 pitcher_df = pd.read_csv(pitcher_file_path)
