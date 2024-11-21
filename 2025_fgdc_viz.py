@@ -218,7 +218,9 @@ def process_pitcher_projections(pitcher_df, team):
 
 # Streamlit app
 def main():
-    st.title("2025 FGDC Baseball Field Visualizer")
+    st.title("2025 FanGraphs' Depth Charts Projections")
+    st.subheader("Made by: Chap Cunningham")
+    st.subheader("Data via: fangraphs.com")
 
     # Load the data
     hitter_file_path = "2025 FGDC Projections - All Hitters.csv"
