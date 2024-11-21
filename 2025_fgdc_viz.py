@@ -67,6 +67,23 @@ class Baseball_Field:
             fontweight = "bold" if idx == 0 else "normal"
             plt.text(dh_x, dh_y - 0.015 * idx, player, color="blue", fontsize=10, ha="center", va="center", fontweight=fontweight)
 
+        # Add a box for the "Pen" (now vertical and shifted to the right)
+        pen_x_start, pen_y_start = 0.6, 0.0001  # Shifted more to the right
+        pen_width, pen_height = 0.3, 0.2      # More vertical and narrower
+        ax.add_patch(Rectangle((pen_x_start, pen_y_start), pen_width, pen_height,
+                               edgecolor="black", facecolor="lightgrey", alpha=0.8, lw=2))
+        pen_text = "Pen:\n" + "\n".join(relief_pitchers)  # Display relief pitchers vertically
+        ax.text(pen_x_start + pen_width / 2, pen_y_start + pen_height / 2, pen_text,
+                fontsize=10, color="black", ha="center", va="center", wrap=True)
+
+        # Add a box for Starting Pitchers in the middle (Pitcher position)
+        sp_x, sp_y = 0.265, 0.265  # Coordinates for "Pitcher" position
+        sp_width, sp_height = 0.2, 0.1  # Box dimensions
+        ax.add_patch(Rectangle((sp_x - sp_width / 2, sp_y - sp_height / 2), sp_width, sp_height,
+                               edgecolor="black", facecolor="lightgrey", alpha=0.9, lw=2))
+        sp_text = "SP:\n" + "\n".join(starting_pitchers)
+        ax.text(sp_x, sp_y, sp_text, fontsize=10, color="black", ha="center", va="center", wrap=True)
+
         plt.axis('off')  # Remove axes for a clean look
         return fig, ax
 
