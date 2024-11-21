@@ -160,7 +160,7 @@ def main():
     pitcher_file_path = "2025 FGDC Projections - All Pitchers.csv"
 
     hitter_df = pd.read_csv(hitter_file_path)
-    pitchers_df = pd.read_csv(pitcher_file_path)
+    pitcher_df = pd.read_csv(pitcher_file_path)
 
     # Get unique team names
     teams = hitter_df['Team'].unique()
