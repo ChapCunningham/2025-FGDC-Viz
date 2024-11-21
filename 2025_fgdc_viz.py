@@ -169,6 +169,53 @@ def plot_field_with_data(hitter_df, pitcher_df, team):
     return fig
 
 
+# Function to process hitter projections for a team
+def process_hitter_projections(hitter_df, team):
+    filtered_df = hitter_df[hitter_df['Team'] == team]
+    filtered_df = filtered_df[filtered_df['Name'] != 'Total']  # Exclude rows with Name = "Total"
+    
+    # Aggregate multiple positions and calculate required columns
+    grouped_df = (
+        filtered_df.groupby("Name")
+        .agg({
+            "Team": "first",
+            "Pos": lambda x: "/".join(x.value_counts().index),
+            "PA": "sum",
+            "AVG": "mean",
+            "OBP": "mean",
+            "SLG": "mean",
+            "wOBA": "mean",
+            "Bat": "sum",
+            "BsR": "sum",
+            "Fld": "sum",
+            "WAR": "sum",
+        })
+        .reset_index()
+    )
+
+    grouped_df = grouped_df.sort_values(by="WAR", ascending=False)
+    return grouped_df[["Name", "Team", "Pos", "PA", "AVG", "OBP", "SLG", "wOBA", "Bat", "BsR", "Fld", "WAR"]]
+
+
+# Function to process pitcher projections for a team
+def process_pitcher_projections(pitcher_df, team):
+    filtered_df = pitcher_df[pitcher_df['Team'] == team]
+    filtered_df = filtered_df[filtered_df['Name'] != 'Total']  # Exclude rows with Name = "Total"
+    
+    # Separate SP and RP
+    sp_df = filtered_df[filtered_df['Pos'] == 'SP']
+    rp_df = filtered_df[filtered_df['Pos'] == 'RP']
+
+    # Sort by WAR for both SP and RP
+    sp_df = sp_df.sort_values(by="WAR", ascending=False)
+    rp_df = rp_df.sort_values(by="WAR", ascending=False)
+
+    return (
+        sp_df[["Name", "Pos", "Team", "IP", "K/9", "BB/9", "HR/9", "BABIP", "LOB%", "ERA", "FIP", "WAR"]],
+        rp_df[["Name", "Pos", "Team", "IP", "K/9", "BB/9", "HR/9", "BABIP", "LOB%", "ERA", "FIP", "WAR"]],
+    )
+
+
 # Streamlit app
 def main():
     st.title("2025 FGDC Baseball Field Visualizer")
@@ -191,6 +238,20 @@ def main():
         fig = plot_field_with_data(hitter_df, pitcher_df, selected_team)
         st.pyplot(fig)
 
+        # Process and display Hitter Projections
+        hitter_projections = process_hitter_projections(hitter_df, selected_team)
+        st.subheader("Hitter Projections")
+        st.dataframe(hitter_projections)
+
+        # Process and display SP and RP Projections
+        sp_projections, rp_projections = process_pitcher_projections(pitcher_df, selected_team)
+        st.subheader("SP Projections")
+        st.dataframe(sp_projections)
+        st.subheader("RP Projections")
+        st.dataframe(rp_projections)
+
+
 if __name__ == "__main__":
     main()
+
 
