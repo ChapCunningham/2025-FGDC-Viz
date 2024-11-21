@@ -111,7 +111,8 @@ def prepare_summary_text(hitter_df, pitcher_df, team):
                                       f"Outfield: {outfield_war:.1f} fWAR\n\n" + \
                    f"**All Pitching:** {all_pitching_war:.1f} fWAR\n" + \
                    f"SP: {sp_war:.1f} fWAR\n" + \
-                   f"RP: {rp_war:.1f} fWAR"
+                   f"RP: {rp_war:.1f} fWAR\n\n\n" + \
+                    "@ChapCunningham"
     return summary_text
 
 
