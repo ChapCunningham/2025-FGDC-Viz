@@ -224,7 +224,7 @@ def main():
 
     # Load the data
     hitter_file_path = "hitters (4).csv"
-    pitcher_file_path = "2025 FGDC Projections - All Pitchers.csv"
+    pitcher_file_path = "pitchers (5).csv"
 
     hitter_df = pd.read_csv(hitter_file_path)
     pitcher_df = pd.read_csv(pitcher_file_path)
