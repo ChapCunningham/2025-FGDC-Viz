@@ -223,7 +223,7 @@ def main():
     st.subheader("Data via: fangraphs.com")
 
     # Load the data
-    hitter_file_path = "hitters (3).csv"
+    hitter_file_path = "hitters (4).csv"
     pitcher_file_path = "2025 FGDC Projections - All Pitchers.csv"
 
     hitter_df = pd.read_csv(hitter_file_path)
